@@ -19,6 +19,7 @@ public class CAHMatch extends Match {
         this.deckW = new Deck(Suit.WHITE);
         this.deckB.suffle();
         this.cardsOnTable = new ArrayList<>();
+        this.cartasJugadores = new ArrayList<>();
         this.cardsOnTable.add(this.deckB.getCard());
     }
 
@@ -26,6 +27,7 @@ public class CAHMatch extends Match {
     public void start() throws IOException {
         this.started = true;
         super.notifyStart();
+        super.inicializaTurn();
     }
 
     @Override

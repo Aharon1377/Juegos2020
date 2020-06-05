@@ -14,14 +14,13 @@ public class Deck {
         else {
         	this.buildWhite();
         }
-        
     }
 
 	public void suffle() {
         SecureRandom dado = new SecureRandom();
         for (int i = 0; i < 200; i++) {
-            int a = dado.nextInt(40);
-            int b = dado.nextInt(40);
+            int a = dado.nextInt(this.cards.size());
+            int b = dado.nextInt(this.cards.size());
             Card auxiliar = this.cards.get(a);
             this.cards.set(a, this.cards.get(b));
             this.cards.set(b, auxiliar);
@@ -33,12 +32,33 @@ public class Deck {
     }
     
     private void buildWhite() {
-		// TODO Auto-generated method stub
+		Card prueba = new Card("Prueba1", Suit.WHITE);
+		this.cards.add(prueba);
+		prueba = new Card("Prueba2", Suit.WHITE);
+		this.cards.add(prueba);
+		prueba = new Card("Prueba3", Suit.WHITE);
+		this.cards.add(prueba);
+		prueba = new Card("Prueba4", Suit.WHITE);
+		this.cards.add(prueba);
+		prueba = new Card("Prueba5", Suit.WHITE);
+		this.cards.add(prueba);
+		prueba = new Card("Prueba6", Suit.WHITE);
+		this.cards.add(prueba);
+		prueba = new Card("Prueba7", Suit.WHITE);
+		this.cards.add(prueba);
+		prueba = new Card("Prueba8", Suit.WHITE);
+		this.cards.add(prueba);
+		prueba = new Card("Prueba9", Suit.WHITE);
+		this.cards.add(prueba);
+		prueba = new Card("Prueba10", Suit.WHITE);
+		this.cards.add(prueba);
+
 		
 	}
 
 	private void buildBlack() {
-		// TODO Auto-generated method stub
+		Card prueba = new Card("PruebaB", Suit.BLACK);
+		this.cards.add(prueba);
 		
 	}
     
