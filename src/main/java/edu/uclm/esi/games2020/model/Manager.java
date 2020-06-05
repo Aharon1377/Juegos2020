@@ -35,15 +35,22 @@ public class Manager {
 		this.pendingMatches = new ConcurrentHashMap<>();
 		this.inPlayMatches = new ConcurrentHashMap<>();
 		
-		Game ajedrez = new Ajedrez();
 		Game ter = new TresEnRaya();
-		Game escoba = new Escoba();
 		Game domino = new Domino();
+		Game cah4 = new CAH(4);
+		Game cah5 = new CAH(5);
+		Game cah6 = new CAH(6);
+		Game cah7 = new CAH(7);
+		Game cah8 = new CAH(8);
 		
-		this.games.put(ajedrez.getName(), ajedrez);
 		this.games.put(ter.getName(), ter);
-		this.games.put(escoba.getName(), escoba);
 		this.games.put(domino.getName(), domino);
+		this.games.put(cah4.getName(), cah4);
+		this.games.put(cah5.getName(), cah5);
+		this.games.put(cah6.getName(), cah6);
+		this.games.put(cah7.getName(), cah7);
+		this.games.put(cah8.getName(), cah8);
+		
 	}
 	
 	public Match joinToMatch(User user, String gameName) {

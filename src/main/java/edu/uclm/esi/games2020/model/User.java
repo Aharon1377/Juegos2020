@@ -26,6 +26,8 @@ public class User implements Serializable{
     @NoJSON
     private String cuenta;
     @NoJSON
+    private int puntos;
+    @NoJSON
     private int wins;
     @NoJSON
     private transient WebSocketSession session;

@@ -1,6 +1,6 @@
 package edu.uclm.esi.games2020.model;
 
-public class EscobaState implements IState {
+public class CAHState implements IState {
     private User user;
 
     @Override

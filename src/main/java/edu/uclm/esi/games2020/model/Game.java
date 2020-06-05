@@ -15,6 +15,7 @@ public abstract class Game {
         this.inPlayMatches = new ConcurrentHashMap<>();
     }
 
+
     public abstract String getName();
 
     public Match joinToMatch(User user) {
