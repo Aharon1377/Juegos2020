@@ -20,7 +20,6 @@ public class CAHMatch extends Match {
 		this.respondido = new ConcurrentHashMap<>();
 		this.deckB = new Deck(Suit.BLACK);
 		this.deckW = new Deck(Suit.WHITE);
-		this.deckB.suffle();
 		this.cardsOnTable = new ArrayList<>();
 		this.cartasJugadores = new ArrayList<>();
 		this.cardsOnTable.add(this.deckB.getCard());
@@ -45,11 +44,11 @@ public class CAHMatch extends Match {
 		jsaCartasenMesa.put(this.cardsOnTable.get(0).toJSON());
 
 		for (int i = 0; i < 5; i++) {
-			this.deckW.suffle();
 			carta = this.deckW.getCard();
 			carta.setState(player.getState());
 			this.cartasJugadores.add(carta);
-			jsaCartasJugador.put(carta.toJSON());
+			if(carta != null)
+				jsaCartasJugador.put(carta.toJSON());
 		}
 
 		JSONObject jso = new JSONObject();
@@ -87,10 +86,14 @@ public class CAHMatch extends Match {
 
 			if (todos_responden) {
 				this.cardsOnTable = new ArrayList<>();
-				this.notifyCarta(session);
-				this.notifyBlack();
 				this.notifyTurn(this.rotateTurn(session));
 				this.notifyWinner(carta.getState().getUser());
+				this.notifyBlack();
+				this.notifyCarta(session);	
+				for(User player : this.players) {
+					this.respondido.put(player.getUserName(), false);
+				}
+
 			} else {
 				this.notifyInvalidPlay(session, "Espera a que todos respondan");
 			}
@@ -155,11 +158,11 @@ public class CAHMatch extends Match {
 
 		JSONObject jso = this.toJSON();
 		Card carta;
-		this.deckB.suffle();
 		carta = this.deckB.getCard();
 		this.cardsOnTable.add(carta);
 		jso.put("type", "nuevaPregunta");
-		jso.put("carta", carta.toJSON());
+		if(carta != null)
+			jso.put("carta", carta.toJSON());
 		for (User player : this.players) {
 			player.send(jso);
 		}
@@ -174,12 +177,12 @@ public class CAHMatch extends Match {
 
 				JSONObject jso = this.toJSON();
 				Card carta;
-				this.deckW.suffle();
 				carta = this.deckW.getCard();
 				carta.setState(player.getState());
 				this.cartasJugadores.add(carta);
 				jso.put("type", "nuevaCarta");
-				jso.put("carta", carta.toJSON());
+				if(carta != null)
+					jso.put("carta", carta.toJSON());
 				player.send(jso);
 
 			}

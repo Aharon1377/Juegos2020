@@ -4,6 +4,11 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+
 public class Deck {
     private List<Card> cards;
 
@@ -28,43 +33,51 @@ public class Deck {
     }
 
     public Card getCard() {
-        return this.cards.remove(0);
+    	if(!this.cards.isEmpty()) {
+    		this.suffle();
+    		return this.cards.remove(0);
+    	}
+    	return null;
     }
     
     private void buildWhite() {
-		Card prueba = new Card("Prueba1", Suit.WHITE);
-		this.cards.add(prueba);
-		prueba = new Card("Prueba2", Suit.WHITE);
-		this.cards.add(prueba);
-		prueba = new Card("Prueba3", Suit.WHITE);
-		this.cards.add(prueba);
-		prueba = new Card("Prueba4", Suit.WHITE);
-		this.cards.add(prueba);
-		prueba = new Card("Prueba5", Suit.WHITE);
-		this.cards.add(prueba);
-		prueba = new Card("Prueba6", Suit.WHITE);
-		this.cards.add(prueba);
-		prueba = new Card("Prueba7", Suit.WHITE);
-		this.cards.add(prueba);
-		prueba = new Card("Prueba8", Suit.WHITE);
-		this.cards.add(prueba);
-		prueba = new Card("Prueba9", Suit.WHITE);
-		this.cards.add(prueba);
-		prueba = new Card("Prueba10", Suit.WHITE);
-		this.cards.add(prueba);
-		prueba = new Card("Prueba11", Suit.WHITE);
-		this.cards.add(prueba);
-		prueba = new Card("Prueba12", Suit.WHITE);
-		this.cards.add(prueba);
+    	
+    	Card carta;
+		String csvFile = "respuestas.csv";
+        String line = "";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        	
+            while ((line = br.readLine()) != null) {
+
+                carta = new Card(line, Suit.WHITE);
+                this.cards.add(carta);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 		
 	}
 
 	private void buildBlack() {
-		Card prueba = new Card("PruebaB", Suit.BLACK);
-		this.cards.add(prueba);
-		prueba = new Card("PruebaB2", Suit.BLACK);
-		this.cards.add(prueba);
+		
+    	Card carta;
+		String csvFile = "preguntas.csv";
+        String line = "";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        	
+            while ((line = br.readLine()) != null) {
+
+                carta = new Card(line, Suit.BLACK);
+                this.cards.add(carta);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		
 	}
     

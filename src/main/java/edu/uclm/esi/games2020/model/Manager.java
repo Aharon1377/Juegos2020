@@ -43,7 +43,6 @@ public class Manager {
 		Game cah6 = new CAH(6);
 		Game cah7 = new CAH(7);
 		Game cah8 = new CAH(8);
-		Game cah2 = new CAH(2);
 		
 		this.games.put(ter.getName(), ter);
 		this.games.put(domino.getName(), domino);
@@ -52,7 +51,6 @@ public class Manager {
 		this.games.put(cah6.getName(), cah6);
 		this.games.put(cah7.getName(), cah7);
 		this.games.put(cah8.getName(), cah8);
-		this.games.put(cah2.getName(), cah2);
 		
 	}
 	
