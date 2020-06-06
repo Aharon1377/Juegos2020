@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.mail.*;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import edu.uclm.esi.games2020.dao.UserDAO;
 import edu.uclm.esi.games2020.dao.TokenDAO;
@@ -156,6 +157,10 @@ public class Manager {
 		return UserDAO.getRankedUsers();
 	}
 	
+	public JSONArray getRankedPoints() {
+		return UserDAO.getRankedPoints();		
+	}
+	
 	public int changePass(String token, String pass) {
 		
 		
@@ -240,6 +245,10 @@ public class Manager {
 
 	public void actualizarVictorias(String winner) {
 		UserDAO.updateWins(winner);
+	}
+	
+	public void actualizarPuntos(String winner) {
+		UserDAO.updatePoints(winner);
 	}
 
 	public void endMatch(Match match) {

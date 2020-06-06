@@ -18,7 +18,7 @@ public class UserDAO {
 
 	public static void insert(String email, String userName, String pwd, String cuenta) {
 		try (WrapperConnection bd = Broker.get().getBd()) {
-			String sql = "insert into user (email, user_name, pwd, wins) values (?, ?, AES_ENCRYPT(?, 'software'), 0)";
+			String sql = "insert into user (email, user_name, pwd, wins, points) values (?, ?, AES_ENCRYPT(?, 'software'), 0, 0)";
 			try (PreparedStatement ps = bd.prepareStatement(sql)) {
 				ps.setString(1, email);
 				ps.setString(2, userName);
@@ -42,6 +42,7 @@ public class UserDAO {
 					+ "FROM user u, user_cuenta c "
 					+ "WHERE u.user_name = ? AND u.user_name = c.user_name AND u.pwd = AES_ENCRYPT(?, 'software')";
 			try (PreparedStatement ps = bd.prepareStatement(sql)) {
+				initPoints();
 				ps.setString(1, userName);
 				ps.setString(2, pwd);
 				try (ResultSet rs = ps.executeQuery()) {
@@ -108,6 +109,75 @@ public class UserDAO {
 			return null;
 		}
 	}
+	
+	public static JSONArray getRankedPoints() {
+		JSONArray jsa = new JSONArray();
+		try (WrapperConnection bd = Broker.get().getBd()) {
+			String sql = "SELECT user_name, points " + "FROM user ORDER BY points DESC";
+			try (PreparedStatement ps = bd.prepareStatement(sql)) {
+				try (ResultSet rs = ps.executeQuery()) {
+					String username;
+					int points;
+					while (rs.next()) {
+						username = rs.getString(1);
+						points = rs.getInt(2);
+						jsa.put(username);
+						jsa.put(Integer.toString(points));
+					}
+					return jsa;
+				}
+
+			}
+		} catch (Exception e1) {
+			log.info("\nError al obtener email");
+			return null;
+		}
+	}
+	
+	public static void initPoints() {
+		try (WrapperConnection bd = Broker.get().getBd()) {
+
+			String sql2 = "update user set points = 0";
+			try (PreparedStatement ps = bd.prepareStatement(sql2)) {
+				ps.executeUpdate();
+			}
+
+		} catch (Exception e) {
+			log.info("\n" + e.getMessage());
+			log.info("\nError al actualizar victorias");
+		}
+	}
+	
+	public static void updatePoints(String username) {
+		try (WrapperConnection bd = Broker.get().getBd()) {
+			int points = 0;
+			String sql = "select points from user where user_name = ?";
+			try (PreparedStatement ps = bd.prepareStatement(sql)) {
+				ps.setString(1, username);
+
+				ResultSet resultSet = ps.executeQuery();
+				try {
+					while (resultSet.next()) {
+						points = resultSet.getInt("points");
+					}
+				} finally {
+					resultSet.close();
+				}
+			}
+
+			String sql2 = "update user set points = ? where user_name = ?";
+			try (PreparedStatement ps = bd.prepareStatement(sql2)) {
+				points++;
+				ps.setString(1, Integer.toString(points));
+				ps.setString(2, username);
+				ps.executeUpdate();
+			}
+
+		} catch (Exception e) {
+			log.info("\n" + e.getMessage());
+			log.info("\nError al actualizar victorias");
+		}
+	}
 
 	public static void updateWins(String username) {
 		try (WrapperConnection bd = Broker.get().getBd()) {
@@ -157,4 +227,5 @@ public class UserDAO {
 			log.info("\nError al cambiar pass");
 		}
 	}
+
 }

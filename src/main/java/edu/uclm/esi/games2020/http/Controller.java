@@ -119,6 +119,12 @@ public class Controller {
         return Manager.get().getRankedUsers();
     }
     
+    @GetMapping("/getRankedPoints")
+    public JSONArray getRankedPoints(HttpSession session){
+    	log.info("\nLa sesión actual del usuario tras conectarse es: "+session.getId());
+        return Manager.get().getRankedPoints();
+    }
+    
 
     @PostMapping(value = "/joinToMatchConMap", produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, Object> joinToMatchConMap(HttpSession session, @RequestBody Map<String, Object> info) {

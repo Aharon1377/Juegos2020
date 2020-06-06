@@ -1,5 +1,7 @@
 package edu.uclm.esi.games2020.model;
 
+import java.util.Collection;
+
 import org.json.JSONObject;
 
 public class Card {
@@ -17,12 +19,19 @@ public class Card {
     public JSONObject toJSON() {
         JSONObject jso = new JSONObject();
         jso.put("text", this.text);
-        jso.put("suit", this.suit);
         return jso;
     }
 
 	public void setState(IState state) {
 		this.state = state;
+	}
+
+	public String getText() {
+		return this.text;
+	}
+	
+	public IState getState() {
+		return this.state;
 	}
 
 }

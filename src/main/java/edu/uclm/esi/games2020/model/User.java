@@ -45,6 +45,14 @@ public class User implements Serializable{
     public void setState(IState state) {
         this.state = state;
     }
+        
+	public void setPuntos(int i) {
+		this.puntos = i;
+	}
+    
+    public int getPuntos() {
+    	return this.puntos;
+    }
 
     public String getUserName() {
         return userName;

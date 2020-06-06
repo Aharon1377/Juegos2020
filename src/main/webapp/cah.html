@@ -20,26 +20,48 @@
 	<a href='index.html'>Volver a Login</a>		
 </div>
 
-<!-- ko foreach : usuarios -->
-<span data-bind="html : $data"></span><br>
-<!-- /ko -->
-
-<!-- ko foreach : { data: cartasEnMesa, as : "carta" } -->
+<div style="width: 100%; overflow: hidden;">
+    <div style="width: 600px; float: left;">
+    
+<h4>Pregunta:</h4>
+<!-- ko foreach : { data: pregunta, as : "carta" } -->
 <button>
 	<label data-bind="html : text"></label>
-	<label> de </label>
-	<label data-bind="html : suit"></label>
 </button>
 <!-- /ko -->
 
-<br><br>
+<h4>Respuestas:</h4>
+<!-- ko foreach : { data: cartasEnMesa, as : "carta" } -->
+<button data-bind="click : $parent.votar">
+	<label data-bind="html : text"></label>
+</button>
+<!-- /ko -->
+
+<h4>Tus cartas:</h4>
 <!-- ko foreach : { data: cartas, as : "carta" } -->
 <button data-bind="click : $parent.ponerEnMesa">
 	<label data-bind="html : text"></label>
-	<label> de </label>
-	<label data-bind="html : suit"></label>
 </button>
 <!-- /ko -->
+
+	</div>
+    <div style="margin-left: 1000px;">
+    
+    <table border="1" id="rank-table" style="border:1px solid black;margin-left:auto;margin-right:auto;">
+	<caption>Clasificación</caption>
+    <thead>
+        <tr>
+            <th id="Rank">Rank</th>
+            <th id="Jugador">Jugador</th>
+            <th id="Puntos">Puntos</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+	</table>
+    
+    </div>
+</div>
 
 <script>
 $(document).ready(function() {

@@ -52,12 +52,18 @@ public class Deck {
 		this.cards.add(prueba);
 		prueba = new Card("Prueba10", Suit.WHITE);
 		this.cards.add(prueba);
+		prueba = new Card("Prueba11", Suit.WHITE);
+		this.cards.add(prueba);
+		prueba = new Card("Prueba12", Suit.WHITE);
+		this.cards.add(prueba);
 
 		
 	}
 
 	private void buildBlack() {
 		Card prueba = new Card("PruebaB", Suit.BLACK);
+		this.cards.add(prueba);
+		prueba = new Card("PruebaB2", Suit.BLACK);
 		this.cards.add(prueba);
 		
 	}

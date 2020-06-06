@@ -68,6 +68,17 @@ public class SpringWebSocket extends TextWebSocketHandler {
         	Match match = Manager.get().findMatch(jso.getString(IDMATCH));
         	match.play(jso, session);
         }
+        
+        if(jso.getString("type").equals("responder")){
+        	Match match = Manager.get().findMatch(jso.getString(IDMATCH));
+        	match.play(jso, session);
+        }
+        
+        if(jso.getString("type").equals("votar")){
+        	Match match = Manager.get().findMatch(jso.getString(IDMATCH));
+        	match.play(jso, session);
+        }
+        
     }
   
 }
